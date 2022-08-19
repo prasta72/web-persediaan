@@ -1,0 +1,64 @@
+<html>
+  <head>
+    <title>cara menyeleksi jamak pada select option dengan jquery part 2/</title>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js">
+    </script>
+	<style type="text/css">
+      .error { color: red; padding-left: 10px; }
+    .submit { margin-left: 100px; margin-top: 10px;}
+    form{margin: auto;width: 500px; border: 1px solid red; padding: 10px; border-radius: 20px;}
+    h1{text-align: center;}
+    </style>
+	<script type="text/javascript">
+      $(document).ready(function() {
+        $('.error').hide();
+        $('.submit').click(function(event){
+		  var itemdipilih="";
+          var hitung=$('select option:selected').val();
+          if(hitung==0)
+          {
+            $('p.pesanan').hide();
+            $('.error').show();
+          }
+          else
+          {
+		    $('select option:selected').each(function(){
+              itemdipilih+=$(this).text()+" - ";
+            });
+            $('.error').hide();
+            $('p.pesanan').show();
+            $('p.pesanan').text('Anda telah memilih '+itemdipilih);
+          }
+          event.preventDefault();
+        });
+      });
+    </script>
+  </head>
+  <body>
+	<form>
+	  <h1>Cara Menyeleksi Jamak Pada Select Option dengan Jquery part 2</h1>
+	  <table>
+	    <tr>
+	      <td>
+	        Silahkan Order
+	      </td>
+	      <td>
+	        <select class="select" MULTIPLE>
+	          <option value="0">Pilih Sedikitnya satu Pakaian</option>
+	          <option value=" Baju Kerja Wanita">Baju Kerja Wanita</option>
+	          <option value=" Dress">Dress</option>
+	          <option value="kimono">kimono</option>
+	          <option value="Daster">Daster </option>
+	          <option value="Blazer">Blazer</option>
+	          <option value="Baju Tidur">Baju Tidur</option>
+	          <option value="Baju Lebaran">Baju Lebaran </option>
+	        </select>
+	      </td>
+	    </tr>
+	  </table>
+	  <p class="error">Anda tidak memilih satupun opsi</p>
+	  <p class="pesanan"></p>
+	  <input class="submit" type="submit" value="Order">
+	</form>
+  </body>
+</html>
