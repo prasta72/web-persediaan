@@ -2,6 +2,7 @@
 namespace app\Services;
 
 use App\Models\Persediaan;
+use App\Models\SaldoAkhir;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 
@@ -18,7 +19,6 @@ class PersediaanService
             'total_harga' => $request->harga * $request->jumlah,
             'tanggal' => date("Y/m/d")
         ]);
-
         
     }
 }

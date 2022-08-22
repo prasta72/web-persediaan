@@ -57,7 +57,7 @@
                                   </button>
                                 </div>
                                 <div class="modal-body">
-                                <form action="{{ route("pakai.penerimaan") }}" id="edit_form" method="POST">
+                                <form action="{{ route('pengeluaran.store') }}" id="edit_form" method="POST">
                                   @csrf
                                     <div class="mb-3 d-none" >
                                       <label for="exampleFormControlInput1" class="form-label">id</label>
@@ -76,9 +76,7 @@
                                       <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                     </div>
                                 </form>
-                               
                                 </div>
-                               
                               </div>
                             </div>
                         </div>

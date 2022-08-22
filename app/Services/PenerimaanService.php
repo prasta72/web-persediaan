@@ -3,6 +3,7 @@ namespace app\Services;
 
 use App\Models\Penerimaan;
 use App\Models\Persediaan;
+use App\Models\SaldoAkhir;
 use Illuminate\Http\Request;
 
 class PenerimaanService
@@ -15,6 +16,10 @@ class PenerimaanService
             "jumlah" => $request->jumlah,
             "status" => $request->status,
             "tanggal" => date("Y/m/d")
+        ]);
+
+        SaldoAkhir::create([
+            'id_persediaan' => $request->id_persediaan,
         ]);
 
         $persediaan = Persediaan::where('id', $request->id_persediaan)->first();

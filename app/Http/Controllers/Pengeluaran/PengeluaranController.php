@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use App\Models\Rekening;
 use App\Models\Persediaan;
 use App\Services\PengeluaranService;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Redis;
 
 class PengeluaranController extends Controller
 {
@@ -41,8 +43,16 @@ class PengeluaranController extends Controller
 
 
     public function pakaiPenerimaan(Request $request){
+        $request->validate([
+            "id_penerimaan" => "required",
+            "id_persediaan" => "required",
+            "jumlah" => "required"
+        ]);
+        
         $pengeluaran = new PengeluaranService();
         $pengeluaran->pakaiPenerimaan($request);
+
+        return back()->with('status', 'berhasil memakai persediaan');
 
     }
 

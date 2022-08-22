@@ -3,18 +3,13 @@ namespace app\Services;
 
 use App\Models\Penerimaan;
 use App\Models\Persediaan;
+use App\Models\SaldoAkhir;
 use Illuminate\Http\Request;
 
 
 class PengeluaranService
 {
     public function pakaiPenerimaan(Request $request){
-        $request->validate([
-            "id_penerimaan" => "required",
-            "id_persediaan" => "required",
-            "jumlah" => "required"
-        ]);
-
         $penerimaan = Penerimaan::where('id', $request->id_penerimaan)->first();
         $persediaan = Persediaan::where('id', $request->id_persediaan)->first();
         if($request->jumlah == $penerimaan->jumlah){
@@ -22,11 +17,20 @@ class PengeluaranService
                 "jumlah" => 0,
                 "status" => "not available",
             ]);
-            Persediaan::where("id", $request->id_persediaan)->update([
-                "total_persediaan" => 0,
+
+            SaldoAkhir::where('id_persediaan', $request->id_persediaan)->update([
+                'jumlah' => $persediaan->total_persediaan - $request->jumlah,
+                'harga' => $persediaan->total_harga - ($penerimaan->harga * $penerimaan->jumlah)
+            ]);
+        }else {
+            Penerimaan::where("id", $request->id_penerimaan)->update([
+                "jumlah" => $penerimaan->jumlah - $request->jumlah,
             ]);
 
-
+            SaldoAkhir::where('id_persediaan', $request->id_persediaan)->update([
+                'jumlah' => $persediaan->total_persediaan - $request->jumlah,
+                'harga' => $persediaan->total_harga - ($penerimaan->harga * $request->jumlah)
+            ]);
         }
     }
 
