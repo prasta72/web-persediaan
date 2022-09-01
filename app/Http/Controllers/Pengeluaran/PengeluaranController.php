@@ -48,11 +48,16 @@ class PengeluaranController extends Controller
             "id_persediaan" => "required",
             "jumlah" => "required"
         ]);
-        
+
         $pengeluaran = new PengeluaranService();
         $pengeluaran->pakaiPenerimaan($request);
-
-        return back()->with('status', 'berhasil memakai persediaan');
+        
+        $penerimaan = Penerimaan::where('id_persediaan', $request->id_persediaan)->where('status', 'available')->orderBy('id', 'asc')->get();
+        $name = Penerimaan::where('id_persediaan', $request->id_persediaan)->first();
+        return view('pengeluaran.creates.daftar-penerimaan', [
+            "penerimaan" => $penerimaan,
+            "name" => $name
+        ]);
 
     }
 

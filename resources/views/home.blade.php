@@ -1,6 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
+<style>
+  table, th, td {
+  border:1px solid black;
+  border-collapse: collapse;
+  padding: 2px;
+}
+</style>
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-12">
@@ -15,17 +22,28 @@
                     @endif
 
                     <div>
-                        <table class="table table-bordered">
+                        <table >
                             <thead>
                               <tr>
-                                <th scope="col">No</th>
-                                <th scope="col">Kode Rekening</th>
-                                <th scope="col">Uraian</th>
-                                <th scope="col">Satuan</th>
-                                <th scope="col">Harga Satuan</th>
-                                <th scope="col">jumlah</th>
-                                <th scope="col">Total Harga</th>
-                                <th scope="col">Action</th>
+                                <th rowspan="2" class="text-center">No</th>
+                                <th rowspan="2" class="text-center">Kode Rekening</th>
+                                <th rowspan="2" class="text-center">Uraian</th>
+                                <th rowspan="2" class="text-center">Satuan</th>
+                                <th rowspan="2" class="text-center">Harga Satuan</th>
+                                <th scope="col" colspan="2" class="text-center">Saldo Awal</th>
+                                <th scope="col" colspan="2" class="text-center">Penerimaan</th>
+                                <th scope="col" colspan="2" class="text-center">Pengeluaran</th>
+                                <th scope="col" colspan="2" class="text-center">Saldo Akhir</th>
+                              </tr>
+                              <tr>
+                                <th scope="col" class="text-center">jumlah</th>
+                                <th scope="col" class="text-center">Harga</th>
+                                <th scope="col" class="text-center">jumlah</th>
+                                <th scope="col" class="text-center">Harga</th>
+                                <th scope="col" class="text-center">jumlah</th>
+                                <th scope="col" class="text-center">Harga</th>
+                                <th scope="col" class="text-center">Jumlah</th>
+                                <th scope="col" class="text-center">Harga</th>
                               </tr>
                             </thead>
                             <tbody>
@@ -37,11 +55,32 @@
                                     <td>{{ $persediaan->name }}</td>
                                     <td>{{ $persediaan->satuan }}</td>
                                     <td>{{ number_format("$persediaan->harga",2,",",".")  }}</td>
+                                    <td>-</td>
+                                    <td>-</td>
                                     <td>{{ $persediaan->total_persediaan }}</td>
                                     <td>{{ number_format("$persediaan->total_harga",2,",",".") }}</td>
-                                    <td><button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal">
-                                      Penerimaan
-                                    </button></td>
+                                    @if (isset($persediaan->totalPengeluaran->jumlah))
+                                      <td>{{ $persediaan->totalPengeluaran->jumlah }}</td>
+                                    @else
+                                      <td>-</td>
+                                    @endif
+
+                                    @if (isset($persediaan->totalPengeluaran->harga))
+                                      <td>{{ number_format(floatval($persediaan->totalPengeluaran->harga),2,",",".") }}</td>
+                                    @else
+                                      <td>-</td>
+                                    @endif
+
+                                    @if (isset($persediaan->saldo->jumlah))
+                                      <td>{{ $persediaan->saldo->jumlah }}</td> 
+                                    @else
+                                      <td>-</td>
+                                    @endif
+                                    @if (isset($persediaan->saldo->harga))
+                                    <td>{{ number_format(floatval($persediaan->saldo->harga),2,",",".") }}</td> 
+                                    @else
+                                      <td>-</td>
+                                    @endif
                                   </tr> 
                                     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                       <div class="modal-dialog" role="document">
@@ -66,8 +105,6 @@
                             </tbody>
                           </table>
                     </div>
-                    
-
                 </div>
             </div>
         </div>

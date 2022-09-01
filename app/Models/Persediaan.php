@@ -33,4 +33,15 @@ class Persediaan extends Model
     {
         return $this->belongsTo('App\Models\Rekening', 'id_rekening');
     }
+
+    public function saldo(){
+        return $this->hasOne('App\Models\Saldo', 'id_persediaan');
+    }
+    public function totalPengeluaran(){
+        return $this->hasOne('App\Models\TotalPengeluaran', 'id_persediaan');
+    }
+
+    public function totalPenerimaan(){
+        return $this->hasOne('App\Models\TotalPenerimaan', "id_persediaan");
+    }
 }

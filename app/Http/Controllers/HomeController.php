@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Persediaan;
+use App\Models\Saldo;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -25,6 +26,7 @@ class HomeController extends Controller
     public function index()
     {
         $persediaan = Persediaan::orderBy('id_rekening')->get();
+
         return view('home', [
             "persediaans" => $persediaan
         ]);

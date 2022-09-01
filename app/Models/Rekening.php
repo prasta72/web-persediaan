@@ -10,6 +10,11 @@ class Rekening extends Model
     use HasFactory;
 
     protected $table = "rekening";
+
+    protected $fillable = [
+        'rekening',
+        'uraian'
+    ];
     
     public function persediaan()
     {

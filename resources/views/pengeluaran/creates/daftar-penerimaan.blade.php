@@ -38,7 +38,7 @@
                               @foreach ($penerimaan as $penerimaan)
                                   <tr>
                                     <th scope="row">{{ $no++ }}</th>
-                                    <td id="date">{{ $penerimaan->created_at }}</td>
+                                    <td id="date">{{ date('d/m/Y', strtotime($penerimaan->created_at))}}</td>
                                     <td id="satuan">{{ $penerimaan->satuan }}</td>
                                     <td id="harga">{{ $penerimaan->harga }}</td>
                                     <td id="jumlah">{{ $penerimaan->jumlah }}</td>
@@ -68,8 +68,8 @@
                                       <input value="" type="number" required name="id_penerimaan" id="id_penerimaan" class="form-control" id="exampleFormControlInput1" placeholder="" {{ old('id') }}>
                                     </div>
                                     <div class="mb-3">
-                                      <label for="exampleFormControlInput1" class="form-label">Jumlah</label>
-                                      <input value="" type="number" required name="jumlah" id="jumlah" class="form-control" id="exampleFormControlInput1" placeholder="jumlah barang" {{ old('jumlah') }}>
+                                      <label for="exampleFormControlInput1"  class="form-label">Jumlah</label>
+                                      <input value="" type="number" min="1" required name="jumlah" id="jumlah" class="form-control" id="exampleFormControlInput1" placeholder="jumlah barang" {{ old('jumlah') }}>
                                     </div>
                                     <div class="modal-footer">
                                       <button type="submit" class="btn btn-primary">Pakai</button>

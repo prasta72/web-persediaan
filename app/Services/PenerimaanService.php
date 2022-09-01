@@ -2,8 +2,12 @@
 namespace app\Services;
 
 use App\Models\Penerimaan;
+use App\Models\Pengeluaran;
 use App\Models\Persediaan;
+use App\Models\Saldo;
 use App\Models\SaldoAkhir;
+use App\Models\TotalPenerimaan;
+use App\Models\TotalPengeluaran;
 use Illuminate\Http\Request;
 
 class PenerimaanService
@@ -17,11 +21,46 @@ class PenerimaanService
             "status" => $request->status,
             "tanggal" => date("Y/m/d")
         ]);
+        // total penerimaan ===================================================
+        $total_penerimaan = TotalPenerimaan::where('id_persediaan', $request->id_persediaan)->first();
 
-        SaldoAkhir::create([
-            'id_persediaan' => $request->id_persediaan,
-        ]);
+        if($total_penerimaan == null){
+            TotalPenerimaan::create([
+                'id_persediaan' => $request->id_persediaan,
+                'jumlah' => $request->jumlah,
+                'harga' => $request->harga * $request->jumlah
+            ]);
+        }else{
+            TotalPenerimaan::where('id_persediaan', $request->id_persediaan)->update([
+                'jumlah' => $total_penerimaan->jumlah + $request->jumlah,
+                'harga' => $total_penerimaan->harga + ($request->harga*$request->jumlah)
+            ]);
+            
+        }
 
+        // Saldo ==============================================================
+        $saldo = Saldo::where('id_persediaan', $request->id_persediaan)->first();
+        if($saldo == null){
+            Saldo::create([
+                'id_persediaan' => $request->id_persediaan,
+                'jumlah' => $request->jumlah,
+                'harga' => $request->harga*$request->jumlah
+            ]);
+        }else{
+            Saldo::where('id_persediaan', $request->id_persediaan)->update([
+                'jumlah' => $saldo->jumlah + $request->jumlah,
+                'harga' => $saldo->harga + ($request->harga*$request->jumlah)
+            ]);
+        }
+        // total pengeluaran =========================================================================
+        $total_pengeluaran = TotalPengeluaran::where('id_persediaan', $request->id_persediaan)->first();
+        if($total_pengeluaran == null){
+            TotalPengeluaran::create([
+                'id_persediaan' => $request->id_persediaan,
+                'jumlah' => 0,
+                'harga' => 0
+            ]);
+        }
         $persediaan = Persediaan::where('id', $request->id_persediaan)->first();
         if($persediaan->total_harga == 0){
             $total_harga = $request->harga * $request->jumlah;

@@ -5,13 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class SaldoAkhir extends Model
+class TotalPenerimaan extends Model
 {
-    protected $table = "saldoakhir";
+    use HasFactory;
+    protected $table = "total_penerimaan";
+
     protected $fillable = [
         'id_persediaan',
         'jumlah',
         'harga'
     ];
-    use HasFactory;
+
+    public function penerimaan(){
+       return $this->belongsTo('App\Models\Persediaan', 'id_persediaan');
+    }
 }

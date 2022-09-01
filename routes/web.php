@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\LoginController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Persediaan\PersediaanController;
+use App\Http\Controllers\Rekening\Rekening;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,3 +28,4 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 require __DIR__ . "/persediaan.php";
 require __DIR__ . "/penerimaan.php";
 require __DIR__ . "/pengeluaran.php";
+require __DIR__ . "/rekening.php";
