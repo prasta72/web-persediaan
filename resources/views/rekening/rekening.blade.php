@@ -36,16 +36,34 @@
                             </div>
                             <button type="submit" class="btn btn-primary">Import</button>
                        </form>
+                       <h3 class="mt-2">Tambah Data Rekening</h3>
+                       <form action="{{ route('add.rekening') }}" method="POST">
+                            @csrf
+                            <div class="mb-3">
+                                <label for="exampleFormControlInput1" class="form-label">Rekening</label>
+                                <input type="text" required name="rekening" class="form-control" id="exampleFormControlInput1" placeholder="Uraian nama barang" {{ old('rekening') }}>
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleFormControlInput1" class="form-label">Rekening dua</label>
+                                <input type="text" required name="rekening_dua" class="form-control" id="exampleFormControlInput1" placeholder="Uraian nama barang" {{ old('rekening_dua') }}>
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleFormControlInput1" class="form-label">Uraian</label>
+                                <input type="text" required name="uraian" class="form-control" id="exampleFormControlInput1" placeholder="Uraian nama barang" {{ old('uraian') }}>
+                            </div>
+                            <button type="submit" class="btn btn-primary">submit</button>
+                       </form>
                         <hr>
                         <table >
                             <thead>
-                                <th>Rekening</th>
-                                <th>Uraian</th>
+                                <th class="text-center" colspan="2">Rekening</th>
+                                <th class="text-center">Uraian</th>
                             </thead>
                             <tbody>
                                 @foreach ($rekenings as $rekening)
                                 <tr>
                                     <td>{{ $rekening->rekening }}</td>
+                                    <td style="color: red">{{ $rekening->rekening_dua }}</td>
                                     <td>{{ $rekening->uraian }}</td>
                                 </tr>
                                 @endforeach

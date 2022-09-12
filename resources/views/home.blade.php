@@ -22,11 +22,15 @@
                     @endif
 
                     <div>
-                        <table >
+                     
+                      <div class="mb-3">
+                        <input type="text"  id="myInput" onkeyup="myFunction()" required name="satuan" class="form-control" id="exampleFormControlInput1" placeholder="pencarian data" {{ old('satuan') }}>
+                      </div>
+                        <table id="myTable">
                             <thead>
                               <tr>
                                 <th rowspan="2" class="text-center">No</th>
-                                <th rowspan="2" class="text-center">Kode Rekening</th>
+                                <th rowspan="2" colspan="2" class="text-center">Kode Rekening</th>
                                 <th rowspan="2" class="text-center">Uraian</th>
                                 <th rowspan="2" class="text-center">Satuan</th>
                                 <th rowspan="2" class="text-center">Harga Satuan</th>
@@ -52,6 +56,7 @@
                                   <tr>
                                     <th scope="row">{{ $no++ }}</th>
                                     <td>{{ $persediaan->rekening->rekening }}</td>
+                                    <td style="color: red">{{ $persediaan->rekening->rekening_dua }}</td>
                                     <td>{{ $persediaan->name }}</td>
                                     <td>{{ $persediaan->satuan }}</td>
                                     <td>{{ number_format("$persediaan->harga",2,",",".")  }}</td>
@@ -110,4 +115,26 @@
         </div>
     </div>
 </div>
+
+<script>
+  function myFunction() {
+    // Declare variables
+    var input, filter, table, tr, td, i, txtValue;
+    input = document.getElementById("myInput");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("myTable");
+    tr = table.getElementsByTagName("tr");
+    for (i = 0; i < tr.length; i++) {
+      td = tr[i].getElementsByTagName("td")[0];
+      if (td) {
+        txtValue = td.textContent || td.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+          tr[i].style.display = "";
+        } else {
+          tr[i].style.display = "none";
+        }
+      }
+    }
+  }
+  </script>
 @endsection

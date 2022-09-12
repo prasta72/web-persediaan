@@ -5,6 +5,7 @@ use App\Http\Controllers\Rekening\Rekening;
 Route::middleware('auth')->prefix('rekening')->group(function() {
     Route::get('/tambah', [Rekening::class, 'index'])->name('rekening');
     Route::post('/import', [Rekening::class, 'importExcel'])->name('import');
+    Route::post('/save', [Rekening::class, 'simpanRekening'])->name('add.rekening');
 });
 
 

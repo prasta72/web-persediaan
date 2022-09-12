@@ -13,6 +13,7 @@ class Rekening extends Model
 
     protected $fillable = [
         'rekening',
+        'rekening_dua',
         'uraian'
     ];
     

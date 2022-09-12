@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('rekening', function (Blueprint $table) {
             $table->id();
             $table->char('rekening');
+            $table->char('rekening_dua');
             $table->char('uraian');
             $table->timestamps();
         });
