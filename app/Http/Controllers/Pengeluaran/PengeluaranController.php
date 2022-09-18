@@ -19,7 +19,6 @@ class PengeluaranController extends Controller
         $persediaan = Persediaan::all();
         $jumlah = Persediaan::all()->count();
 
-
         return view("pengeluaran.creates.pengeluaran" ,[
             "rekenings" => $rekening,
             "persediaans" => $persediaan,
@@ -32,13 +31,17 @@ class PengeluaranController extends Controller
             "rekening" => "required",
             "id_persediaan" => "required"
         ]);
-
         $penerimaan = Penerimaan::where('id_persediaan', $request->id_persediaan)->where('status', 'available')->orderBy('id', 'asc')->get();
-        $name = Penerimaan::where('id_persediaan', $request->id_persediaan)->first();
-        return view('pengeluaran.creates.daftar-penerimaan', [
-            "penerimaan" => $penerimaan,
-            "name" => $name
-        ]);
+        if($penerimaan == null){
+            return back()->with('status', 'persediaan masih kosong');
+        }else{
+            $name = Penerimaan::where('id_persediaan', $request->id_persediaan)->first();
+            return view('pengeluaran.creates.daftar-penerimaan', [
+                "penerimaan" => $penerimaan,
+                "name" => $name
+            ]);
+        }
+      
     }
 
 

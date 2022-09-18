@@ -16,7 +16,8 @@ class RekeningImport implements ToModel
     {
         return new Rekening([
             'rekening' => $row[1],
-            'uraian' => $row[2]
+            'rekening_dua' => $row[2],
+            'uraian' => $row[3]
         ]);
     }
 }

@@ -12,7 +12,7 @@
                 </div>
             @endif
             <div class="card">
-                <div class="card-header"> Daftar Penerimaan {{ $name->persediaan->name }} </div>
+                <div class="card-header"> Daftar Penerimaan {{ $name->persediaan->name ?? "belum ada penerimaan" }}  </div>
 
                 <div class="card-body">
                     @if (session('status'))
