@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\persediaan\ExportController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Persediaan\PersediaanController;
 use App\Http\Controllers\Rekening\Rekening;
@@ -24,7 +25,7 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
-
+Route::get('/export', [ExportController::class, 'exportPdf'])->name('persediaan.export-pdf');
 require __DIR__ . "/persediaan.php";
 require __DIR__ . "/penerimaan.php";
 require __DIR__ . "/pengeluaran.php";

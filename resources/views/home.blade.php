@@ -22,7 +22,7 @@
                     @endif
 
                     <div>
-                     
+                     <a class="btn btn-danger mb-2" href="{{ route('persediaan.export-pdf') }}">export PDF</a>
                       <div class="mb-3">
                         <input type="text"  id="myInput" onkeyup="myFunction()" required name="satuan" class="form-control" id="exampleFormControlInput1" placeholder="pencarian data" {{ old('satuan') }}>
                       </div>
