@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
+                <div class="card-header text-center">Sistem Informasi Persediaan Badan Pendapatan dan Pengelolaan  Aset Daerah</div>
                 <img class="mt-2" style="width: 8rem; margin:auto;" src="{{ asset('image/logo_krs.png') }}" alt="">
 
                 <div class="card-body">
